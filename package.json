@@ -1,0 +1,58 @@
+{
+  "name": "wedding-checklist-app",
+  "version": "2.0.0",
+  "description": "Aplikasi checklist persiapan pernikahan yang komprehensif dan user-friendly",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1",
+    "dev": "live-server --port=3000",
+    "build": "echo 'No build process needed for vanilla JS app'",
+    "test": "echo 'No tests specified yet'",
+    "lint": "eslint assets/js/*.js",
+    "format": "prettier --write assets/js/*.js assets/css/*.css",
+    "validate": "html-validate index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/wedding-checklist-app.git"
+  },
+  "keywords": [
+    "wedding",
+    "checklist",
+    "planning",
+    "pernikahan",
+    "todo",
+    "javascript",
+    "vanilla-js",
+    "localStorage",
+    "responsive",
+    "mobile-friendly"
+  ],
+  "author": {
+    "name": "Wedding Checklist Team",
+    "email": "dev@weddingchecklist.com",
+    "url": "https://weddingchecklist.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/username/wedding-checklist-app/issues"
+  },
+  "homepage": "https://github.com/username/wedding-checklist-app#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.8.0",
+    "html-validate": "^7.0.0",
+    "http-server": "^14.0.0",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

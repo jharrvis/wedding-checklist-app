@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checklist Persiapan Pernikahan</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>💍 Checklist Persiapan Pernikahan</h1>
+        <p>Rencanakan hari bahagia Anda dengan mudah dan terorganisir</p>
+
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-number" id="totalTasks">0</span>
+            <span>Total Tugas</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="completedTasks">0</span>
+            <span>Selesai</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="urgentTasks">0</span>
+            <span>Urgent</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="progressPercent">0%</span>
+            <span>Progress</span>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="controls">
+          <button class="btn btn-primary" onclick="openCategoryModal()">
+            ➕ Tambah Kategori
+          </button>
+          <button class="btn btn-secondary" onclick="openNotesModal()">
+            📝 Catatan
+          </button>
+          <button
+            class="btn btn-danger"
+            onclick="openConfirmModal('resetData')"
+          >
+            🗑️ Reset Semua Data
+          </button>
+        </div>
+
+        <!-- Urgent Tasks Section -->
+        <div id="urgentSection" class="urgent-section" style="display: none">
+          <h3 class="urgent-title">🚨 Tugas Urgent</h3>
+          <div id="urgentTasksList" class="urgent-tasks-list"></div>
+        </div>
+
+        <div class="categories" id="categoriesContainer">
+          <div class="empty-state">
+            <h3>Belum ada kategori</h3>
+            <p>Mulai dengan menambahkan kategori pertama Anda!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Kategori -->
+    <div id="categoryModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="categoryModalTitle">Tambah Kategori</h2>
+          <span class="close" onclick="closeCategoryModal()">&times;</span>
+        </div>
+        <form id="categoryForm">
+          <div class="form-group">
+            <label>Nama Kategori:</label>
+            <input
+              type="text"
+              id="categoryName"
+              class="form-control"
+              placeholder="Contoh: Dekorasi"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Atau pilih dari saran:</label>
+            <div class="suggestions" id="categorySuggestions"></div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+              Simpan Kategori
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeCategoryModal()"
+            >
+              Batal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Task -->
+    <div id="taskModal" class="modal">
+      <div class="modal-content modal-large">
+        <div class="modal-header">
+          <h2 id="taskModalTitle">Tambah Tugas</h2>
+          <span class="close" onclick="closeTaskModal()">&times;</span>
+        </div>
+        <div class="suggestions" id="taskSuggestions"></div>
+        <form id="taskForm">
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Nama Tugas:</label>
+              <input
+                type="text"
+                id="taskName"
+                class="form-control"
+                placeholder="Masukkan nama tugas..."
+                required
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Prioritas:</label>
+              <select id="taskPriority" class="form-control">
+                <option value="normal">Normal</option>
+                <option value="important">Penting</option>
+                <option value="very-important">Sangat Penting</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Tanggal:</label>
+              <input type="date" id="taskDate" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+              <label>Lokasi:</label>
+              <input
+                type="text"
+                id="taskLocation"
+                class="form-control"
+                placeholder="Opsional"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Catatan:</label>
+            <textarea
+              id="taskNotes"
+              class="form-control"
+              rows="3"
+              placeholder="Tambahkan catatan opsional..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Simpan Tugas</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeTaskModal()"
+            >
+              Batal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Catatan -->
+    <div id="notesModal" class="modal">
+      <div class="modal-content modal-large">
+        <div class="modal-header">
+          <h2>📝 Catatan Pernikahan</h2>
+          <span class="close" onclick="closeNotesModal()">&times;</span>
+        </div>
+        <div class="notes-container">
+          <div class="notes-tabs">
+            <button class="tab-btn active" onclick="switchNotesTab('all')">
+              Semua Catatan
+            </button>
+            <button class="tab-btn" onclick="switchNotesTab('task')">
+              Catatan Tugas
+            </button>
+            <button class="tab-btn" onclick="switchNotesTab('general')">
+              Catatan Umum
+            </button>
+          </div>
+          <div class="notes-content" id="notesContent">
+            <!-- Content will be populated by JavaScript -->
+          </div>
+          <div class="notes-actions">
+            <button class="btn btn-primary" onclick="addGeneralNote()">
+              ➕ Tambah Catatan Umum
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div id="confirmModal" class="modal">
+      <div class="modal-content modal-small">
+        <div class="modal-header">
+          <h2 id="confirmTitle">Konfirmasi</h2>
+          <span class="close" onclick="closeConfirmModal()">&times;</span>
+        </div>
+        <div class="confirm-content">
+          <p id="confirmMessage">Apakah Anda yakin?</p>
+          <div class="confirm-actions">
+            <button class="btn btn-danger" id="confirmYes">Ya</button>
+            <button class="btn btn-secondary" onclick="closeConfirmModal()">
+              Batal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
