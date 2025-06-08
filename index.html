@@ -13,6 +13,23 @@
         <h1>💍 Checklist Persiapan Pernikahan</h1>
         <p>Rencanakan hari bahagia Anda dengan mudah dan terorganisir</p>
 
+        <!-- Wedding Date & Countdown -->
+        <div class="wedding-date-section">
+          <div class="wedding-date-display" onclick="openWeddingDateModal()">
+            <div class="wedding-date-info">
+              <span class="wedding-date-label">Tanggal Pernikahan</span>
+              <span class="wedding-date-value" id="weddingDateDisplay"
+                >Belum ditentukan</span
+              >
+              <span class="wedding-time-value" id="weddingTimeDisplay"></span>
+            </div>
+            <div class="countdown-info">
+              <span class="countdown-label">Countdown</span>
+              <span class="countdown-value" id="countdownDisplay">--</span>
+            </div>
+          </div>
+        </div>
+
         <div class="stats">
           <div class="stat-item">
             <span class="stat-number" id="totalTasks">0</span>
@@ -42,6 +59,9 @@
           <button class="btn btn-primary" onclick="openCategoryModal()">
             ➕ Tambah Kategori
           </button>
+          <button class="btn btn-secondary" onclick="toggleCalendarView()">
+            📅 <span id="calendarToggleText">Calendar View</span>
+          </button>
           <button class="btn btn-secondary" onclick="openNotesModal()">
             📝 Catatan
           </button>
@@ -51,6 +71,52 @@
           >
             🗑️ Reset Semua Data
           </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="🔍 Cari tugas..."
+            onkeyup="handleSearch(event)"
+          />
+          <button
+            class="search-clear"
+            onclick="clearSearch()"
+            style="display: none"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Calendar View -->
+        <div id="calendarView" class="calendar-view" style="display: none">
+          <div class="calendar-header">
+            <button class="btn btn-secondary" onclick="previousMonth()">
+              ‹
+            </button>
+            <h3 id="calendarMonthYear"></h3>
+            <button class="btn btn-secondary" onclick="nextMonth()">›</button>
+          </div>
+          <div class="calendar-grid" id="calendarGrid">
+            <!-- Calendar will be populated by JavaScript -->
+          </div>
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <span class="legend-color urgent"></span>
+              <span>Urgent</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color important"></span>
+              <span>Penting</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color normal"></span>
+              <span>Normal</span>
+            </div>
+          </div>
         </div>
 
         <!-- Urgent Tasks Section -->
@@ -65,6 +131,44 @@
             <p>Mulai dengan menambahkan kategori pertama Anda!</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        © 2025 <strong>RH Dekorasi Salatiga</strong> - Created with ❤️ for your
+        special day
+      </p>
+    </footer>
+
+    <!-- Modal Wedding Date -->
+    <div id="weddingDateModal" class="modal">
+      <div class="modal-content modal-small">
+        <div class="modal-header">
+          <h2>🗓️ Set Tanggal Pernikahan</h2>
+          <span class="close" onclick="closeWeddingDateModal()">&times;</span>
+        </div>
+        <form id="weddingDateForm">
+          <div class="form-group">
+            <label>Tanggal Pernikahan:</label>
+            <input type="date" id="weddingDate" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Waktu Acara:</label>
+            <input type="time" id="weddingTime" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeWeddingDateModal()"
+            >
+              Batal
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -225,6 +329,15 @@
     </div>
 
     <script src="assets/js/data.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/wedding-date.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/calendar.js"></script>
+    <script src="assets/js/drag-drop.js"></script>
+    <script src="assets/js/categories.js"></script>
+    <script src="assets/js/tasks.js"></script>
+    <script src="assets/js/rendering.js"></script>
+    <script src="assets/js/notes-modals.js"></script>
+    <script src="assets/js/data-export.js"></script>
   </body>
 </html>
